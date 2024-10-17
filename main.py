@@ -1,23 +1,17 @@
 #!/usr/bin/env python
 import json
 import os
-import flask as fk
 #import sqlite3
 
 #con = sqlite3.connect("data.db")
 #cur = con.cursor()
 #cur.execute("CREATE TABLE Todo(Task, Status)")
 
-app = Flask(__name__)
-
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
-
+todo = {}
 data = "data.json"
-with open(data, 'r') as f:
-    todo = json.load(f)
-
+if os.path.exists(data):
+    with open(data, 'r') as f:
+        todo = json.load(f)
 
 print("Welcome to Todo List.")
 print("How you doin?")
@@ -73,10 +67,9 @@ while True:
                 print(i, ": ", todo[i])
 
         case 6:
-            if os.path.exists(data):
-                with open("data.json", "w") as outfile:
-                    json.dump(todo, outfile)
-                break
+            with open("data.json", "w") as outfile:
+                json.dump(todo, outfile)
+            break
 
         case _:
             print("Invalid Option Choose again")
